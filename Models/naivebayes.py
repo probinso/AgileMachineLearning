@@ -1,3 +1,8 @@
+from collections import namedtuple
+from collections import defaultdict
+import pandas as pd
+
+
 
 def wrapper_for_nb_in_sklearn(data, current_state_to_predict):
     """
@@ -8,4 +13,17 @@ def wrapper_for_nb_in_sklearn(data, current_state_to_predict):
     to predict, and the order
     """
 
-    return None
+    store = defaultdict(dict)
+    Label = data.columns[-1]
+    pop = len(data)
+    for choice in data[Label].unique():
+        for col in data.columns[:-1]:
+            for type in data[col].unique():
+                _ = data[data[col]==type][data[Label]==choice]
+                count = len(_)
+                store[choice][col,type] = count*1.0/pop
+    print store
+    print pop
+
+
+    return store
