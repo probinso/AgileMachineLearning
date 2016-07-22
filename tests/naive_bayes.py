@@ -1,5 +1,6 @@
 import unittest
 from Models.naivebayes import wrapper_for_nb_in_sklearn
+import pandas as pd
 
 
 # Test data pulled from: https://seat.massey.ac.nz/personal/s.r.marsland/MLBook.html
@@ -17,11 +18,12 @@ PARTY_DATA =       [["Urgent", "Yes", "Yes", "Party"],
                     ["Near", "Yes", "Yes", "Party"],
                     ["Urgent", "No", "No", "Study"]]
 
-
+dataframe = pd.DataFrame(PARTY_DATA, columns=PARTY_DATA_HEADER)
 class TestNaiveBayes(unittest.TestCase):
     def test_party_solutions_with_pre_built_model(self):
+
         X = ["Near", "No", "Yes"]
-        predicted_class = wrapper_for_nb_in_sklearn(PARTY_DATA, X)
+        predicted_class = wrapper_for_nb_in_sklearn(dataframe, X)
         self.assertEqual(predicted_class, "Study")
 
         #TODO: Probably should have a few other assertions in here.
