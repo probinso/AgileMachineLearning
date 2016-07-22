@@ -44,9 +44,11 @@ class Post(db.Entity):
     communityowneddate = Optional(datetime)
     PrimaryKey(id, posttypeid)
 
-    def get_tags(self):
+    @property
+    def tbl_tags(self):
         tagnames = self.tags.replace('>', '').split('<')[1:]
         return select(t for t in Tag if t.tagname in tagnames)
+
 
 class Tag(db.Entity):
     _table_ = "tags"
@@ -99,7 +101,7 @@ def main():
     posts = select(e for e in Post if e.tags and e.title).limit(20)
     for p in posts:
         print(p.title)
-        tags = p.get_tags()
+        tags = p.tbl_tags
         for t in tags:
             print(':::', "{} USED {} TIMES".format(t.tagname, t.count))
         print()
