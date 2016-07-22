@@ -1,8 +1,11 @@
+from __future__ import print_function
+
 from datetime import time
 from datetime import datetime
 from pony.orm import *
 from settings import DATABASE_NAME, DATABASE_PASS, DATABASE_USER
 
+# https://docs.ponyorm.com/queries.html
 db = Database("postgres",
               host="localhost",
               user=DATABASE_USER,
@@ -41,6 +44,9 @@ class Post(db.Entity):
     communityowneddate = Optional(datetime)
     PrimaryKey(id, posttypeid)
 
+    def get_tags(self):
+        tagnames = self.tags.replace('>', '').split('<')[1:]
+        return select(t for t in Tag if t.tagname in tagnames)
 
 class Tag(db.Entity):
     _table_ = "tags"
@@ -84,9 +90,19 @@ db.generate_mapping()
 
 @db_session
 def main():
-    entries = select(e for e in Tag)
-    for e in entries:
-        print(e.tagname)
+    aged    = count(e for e in User if e.age is not None)
+    ageless = count(e for e in User if e.age is     None)
+    print('{} users post their age'.format(aged))
+    print('{} users don\'t post their age'.format(ageless))
+    print()
+
+    posts = select(e for e in Post if e.tags and e.title).limit(20)
+    for p in posts:
+        print(p.title)
+        tags = p.get_tags()
+        for t in tags:
+            print(':::', "{} USED {} TIMES".format(t.tagname, t.count))
+        print()
 
 if __name__ == '__main__':
     main()

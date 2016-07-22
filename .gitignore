@@ -2,4 +2,5 @@
 settings.py
 .idea
 *.pyc
-
+Data/stack_exchange.psql
+v.env2/
