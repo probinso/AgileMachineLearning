@@ -16,14 +16,20 @@ def wrapper_for_nb_in_sklearn(data, current_state_to_predict):
 
     store = defaultdict(lambda : defaultdict(dict))
     Label = data.columns[-1]
-    pop = len(data)
+
     for choice in data[Label].unique():
         for col in data.columns[:-1]:
             for type in data[col].unique():
-                _ = data[data[col]==type][data[Label]==choice]
-                count = len(_)
+                count = len(data[data[col]==type][data[Label]==choice])
+                pop   = len(data[data[Label]==choice])
                 store[choice][col][type] = count/pop
 
-    
+    for choice in store:
+        prob = len(data[data[Label]==choice])/len(data)
+        for index, col in enumerate(data.columns[:-1]):
+            state = current_state_to_predict[index]
+            prob *= store[choice][col][state]
+
+        print(choice, prob)
 
     return store
