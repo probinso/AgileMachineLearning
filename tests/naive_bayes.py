@@ -23,7 +23,6 @@ class TestNaiveBayes(unittest.TestCase):
     def test_party_solutions_with_pre_built_model(self):
 
         X = ["Near", "No", "Yes"]
-        predicted_class = wrapper_for_nb_in_sklearn(dataframe, X)
-        self.assertEqual(predicted_class, "Study")
+        prob, predicted_class = wrapper_for_nb_in_sklearn(dataframe, X)
+        self.assertEqual(predicted_class, "TV")
 
-        #TODO: Probably should have a few other assertions in here.
