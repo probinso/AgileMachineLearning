@@ -16,7 +16,7 @@ def wrapper_for_nb_in_sklearn(data, current_state_to_predict):
 
     store = defaultdict(lambda : defaultdict(dict))
     Label = data.columns[-1]
-
+    maxstore = []
     for choice in data[Label].unique():
         for col in data.columns[:-1]:
             for type in data[col].unique():
@@ -30,6 +30,11 @@ def wrapper_for_nb_in_sklearn(data, current_state_to_predict):
             state = current_state_to_predict[index]
             prob *= store[choice][col][state]
 
-        print(choice, prob)
+        maxstore.append((prob, choice))
+
+    return max(maxstore)
+
+
+
 
     return store
