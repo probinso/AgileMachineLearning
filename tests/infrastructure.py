@@ -1,7 +1,7 @@
 import unittest
 
 from database import run_query
-from settings import DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD
+from settings import DATABASE_NAME, DATABASE_USER, DATABASE_PASS
 
 
 class TestDatabaseExists(unittest.TestCase):
