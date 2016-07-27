@@ -24,5 +24,6 @@ class TestNaiveBayes(unittest.TestCase):
 
         X = ["Near", "No", "Yes"]
         prob, predicted_class = wrapper_for_nb_in_sklearn(dataframe, X)
+        print(prob, predicted_class)
         self.assertEqual(predicted_class, "TV")
 
