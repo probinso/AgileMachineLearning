@@ -1,21 +1,6 @@
 import unittest
 from Models.naivebayes import wrapper_for_nb_in_sklearn
-
-
-# Test data pulled from: https://seat.massey.ac.nz/personal/s.r.marsland/MLBook.html
-# Thanks, Marsland!
-
-PARTY_DATA_HEADER = ["Deadline", "Party", "Lazy", "Activity"]
-PARTY_DATA =       [["Urgent", "Yes", "Yes", "Party"],
-                    ["Urgent", "No", "Yes", "Study"],
-                    ["Near", "Yes", "Yes", "Party"],
-                    ["None", "Yes", "No", "Party"],
-                    ["None", "No", "Yes", "Pub"],
-                    ["None", "Yes", "No", "Party"],
-                    ["Near", "No", "No", "Study"],
-                    ["Near", "No", "Yes", "TV"],
-                    ["Near", "Yes", "Yes", "Party"],
-                    ["Urgent", "No", "No", "Study"]]
+from tests.data import PARTY_DATA
 
 
 class TestNaiveBayes(unittest.TestCase):
