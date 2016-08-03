@@ -1,6 +1,6 @@
 import unittest
-from Models.naivebayes import wrapper_for_nb_in_sklearn
-from tests.data import PARTY_DATA
+from Models.naivebayes import wrapper_for_nb_in_sklearn, wrapper_for_nb_in_sklearn_using_bernoulli_nb
+from tests.data import PARTY_DATA, BERNOULLI_PARTY_DATA
 
 
 class TestNaiveBayes(unittest.TestCase):
@@ -9,4 +9,7 @@ class TestNaiveBayes(unittest.TestCase):
         predicted_class = wrapper_for_nb_in_sklearn(PARTY_DATA, X)
         self.assertEqual(predicted_class, "TV")
 
-        #TODO: Probably should have a few other assertions in here.
+    def test_party_solutions_with_pre_built_bernoulli_model(self):
+        X = ["No", "Yes", "No", "No", "Yes"]
+        predicted_class = wrapper_for_nb_in_sklearn_using_bernoulli_nb(BERNOULLI_PARTY_DATA, X)
+        self.assertEqual(predicted_class, "TV")
