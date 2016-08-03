@@ -2,16 +2,30 @@ import numpy as np
 from sklearn.naive_bayes import MultinomialNB, BernoulliNB
 from sklearn.preprocessing import LabelEncoder
 
+def wrapper_for_nb_in_sklearn_by_riley(data, current_state_to_predict):
+    height, width = np.shape(data)
+    smooshed = np.reshape(data,(height * width))
+    le = LabelEncoder()
+    le.fit(smooshed)
+    encoded = le.transform(smooshed)
+    clean = encoded.reshape(height,width)
+
+
+    labels = np.array([x[-1] for x in clean])
+    training = np.array([x[:-1] for x in clean])
+    clf = MultinomialNB()
+    clf.fit(training, labels)
+    current_state_to_predict = np.array(current_state_to_predict)
+    current_state_to_predict = current_state_to_predict.reshape(1,-1)
+    thing = le.transform(np.array(current_state_to_predict))
+
+    final =  clf.predict(thing)
+
+    return le.inverse_transform(final)
+    # return None
+
 
 def wrapper_for_nb_in_sklearn(data, current_state_to_predict):
-    """
-        Import an already-built implementation, train it on the data,
-    and return the class predicted given the current state.
-
-        Note that the last column of data is assumed to be the variable
-    to predict, and the order
-    """
-
     # Convert inputs to arrays to leverage numpy's reshaping and indexing
     data = np.array(data)
     state_to_predict = np.array(current_state_to_predict).reshape((1, -1))
@@ -34,7 +48,6 @@ def wrapper_for_nb_in_sklearn(data, current_state_to_predict):
 
     # Predict for sample, and convert back to string:
     predicted_state_as_str = clf.predict(intified_state_to_predict)[0]
-
     return predicted_state_as_str
 
 
