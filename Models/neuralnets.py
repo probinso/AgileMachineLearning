@@ -1,9 +1,9 @@
 from __future__ import division
+from sklearn.neural_network import MLPClassifier
 import numpy as np
 
 
 def wrapper_for_backprop_neural_network_code(train_x, train_y, test_x, test_y):
-    from sklearn.neural_network import MLPClassifier
     clf = MLPClassifier(
         algorithm="sgd", # stochastic gradient descent
         hidden_layer_sizes=(100,100),

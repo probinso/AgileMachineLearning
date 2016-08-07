@@ -13,16 +13,15 @@ class TestNeuralNetworks(TestCase):
         # 95ish % is the highest I was getting
         #   Note that you want the test to pass consistently.  So whatever this
         # threshold is should be the worst-case-scenario training minimum
-        accuracy_target = 0.5  # percent
+        accuracy_target = 0.5 # percent
 
-
-        data = DIGITS_DATASET['data']
+        data    = DIGITS_DATASET['data']
         targets = DIGITS_DATASET['target']
 
         from sklearn.cross_validation import train_test_split
-
         train_x, test_x, train_y, test_y = train_test_split(
-            data, targets, test_size=relative_test_set_size)
+            data, targets, test_size=relative_test_set_size
+        )
 
         score = wrapper_for_backprop_neural_network_code(train_x, train_y, test_x, test_y)
         self.assertGreaterEqual(score, accuracy_target)
