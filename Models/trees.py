@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.tree.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 
 
 def wrapper_for_decision_tree_in_sklearn(X, y, current_state_to_predict):

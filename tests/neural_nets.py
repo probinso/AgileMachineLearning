@@ -2,6 +2,7 @@ from unittest import TestCase
 
 from Models.neuralnets import wrapper_for_backprop_neural_network_code
 from tests.data import DIGITS_DATASET
+from sklearn.model_selection import train_test_split
 
 
 class TestNeuralNetworks(TestCase):
@@ -18,7 +19,6 @@ class TestNeuralNetworks(TestCase):
         data    = DIGITS_DATASET['data']
         targets = DIGITS_DATASET['target']
 
-        from sklearn.cross_validation import train_test_split
         train_x, test_x, train_y, test_y = train_test_split(
             data, targets, test_size=relative_test_set_size
         )
