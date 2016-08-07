@@ -7,3 +7,5 @@ scikit-learn>=0.17.1
 scipy>=0.17.1
 pony>=0.6.5
 scikit-neuralnetwork>=0.7
+jupyter>=1.0
+pandas>=0.18.1
