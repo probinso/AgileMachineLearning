@@ -25,4 +25,5 @@ class TestNeuralNetworks(TestCase):
             data, targets, test_size=relative_test_set_size)
 
         score = wrapper_for_backprop_neural_network_code(train_x, train_y, test_x, test_y)
+        print(score)
         self.assertGreaterEqual(score, accuracy_target)
